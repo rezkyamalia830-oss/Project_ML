@@ -1,7 +1,7 @@
 # 🏥 Prediksi Asuransi Biaya Medis
 
 ## 📌 Deskripsi Proyek
-Proyek ini merupakan implementasi Machine Learning untuk memprediksi asuransi biaya medis
+Proyek ini merupakan implementasi Machine Learning menggunakan metode regresi untuk memprediksi asuransi biaya medis
 berdasarkan kondisi pasien seperti umur, BMI, kebiasaan merokok, aktivitas fisik, dan faktor kesehatan lainnya.
 
 
