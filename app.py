@@ -1,10 +1,26 @@
 import streamlit as st
 import pandas as pd
-import pickle
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor
 
-# load model & scaler
-model = pickle.load(open("model.pkl", "rb"))
-scaler = pickle.load(open("scaler.pkl", "rb"))
+# =========================
+# LOAD DATA & TRAIN MODEL
+# =========================
+df = pd.read_csv("insurance_dataset.csv")
+
+df = pd.get_dummies(df, drop_first=True)
+
+X = df.drop('annual_medical_cost', axis=1)
+y = df['annual_medical_cost']
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+model = RandomForestRegressor(n_estimators=100, random_state=42)
+model.fit(X_scaled, y)
+
+# simpan kolom
+X_columns = X.columns
 
 st.title("Prediksi Biaya Medis 🏥")
 
@@ -64,7 +80,7 @@ if st.button("Prediksi"):
     data = pd.get_dummies(data, drop_first=True)
 
     # 3. samakan kolom
-    data = data.reindex(columns=scaler.feature_names_in_, fill_value=0)
+    data = data.reindex(columns=X_columns, fill_value=0)
 
     # 4. scaling
     data_scaled = scaler.transform(data)
